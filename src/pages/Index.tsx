@@ -107,25 +107,65 @@ const Index = () => {
         />
 
         <div className="p-6 space-y-6">
-          {/* Stats Overview */}
-          <StatsOverview stats={mockStats} />
+          {activeTab === 'dashboard' && (
+            <>
+              {/* Stats Overview */}
+              <StatsOverview stats={mockStats} />
 
-          {/* Scan Table Section */}
-          <div>
-            <div className="flex items-center justify-between mb-4">
+              {/* Scan Table Section */}
               <div>
-                <h2 className="text-lg font-semibold">Recent Scans</h2>
-                <p className="text-sm text-muted-foreground">
-                  {scans.length} scans total • Auto-refreshes every 10s
-                </p>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h2 className="text-lg font-semibold">Recent Scans</h2>
+                    <p className="text-sm text-muted-foreground">
+                      {scans.length} scans total • Auto-refreshes every 10s
+                    </p>
+                  </div>
+                </div>
+                <ScanTable
+                  scans={scans}
+                  onViewDetails={handleViewDetails}
+                  onDelete={handleDeleteScan}
+                />
               </div>
+            </>
+          )}
+
+          {activeTab === 'scans' && (
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h2 className="text-lg font-semibold">All Scans</h2>
+                  <p className="text-sm text-muted-foreground">
+                    {scans.length} scans total • Auto-refreshes every 10s
+                  </p>
+                </div>
+              </div>
+              <ScanTable
+                scans={scans}
+                onViewDetails={handleViewDetails}
+                onDelete={handleDeleteScan}
+              />
             </div>
-            <ScanTable
-              scans={scans}
-              onViewDetails={handleViewDetails}
-              onDelete={handleDeleteScan}
-            />
-          </div>
+          )}
+
+          {activeTab === 'reports' && (
+            <div className="glass-card p-8 text-center">
+              <h2 className="text-lg font-semibold mb-2">Reports</h2>
+              <p className="text-muted-foreground">
+                Security reports and analytics will be available here.
+              </p>
+            </div>
+          )}
+
+          {activeTab === 'settings' && (
+            <div className="glass-card p-8 text-center">
+              <h2 className="text-lg font-semibold mb-2">Settings</h2>
+              <p className="text-muted-foreground">
+                Configure your security scanner preferences here.
+              </p>
+            </div>
+          )}
         </div>
       </main>
 
